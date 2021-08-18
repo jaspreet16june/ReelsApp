@@ -1,0 +1,40 @@
+.video-card{
+    position: relative;
+    height: 100%;
+    width:35%;
+    margin:auto;
+    border: 1px solid white;
+}
+.video-card-username{
+    color: white;
+    font-weight: bold;
+    bottom: 7rem;
+    position: absolute;
+    margin: 1rem;
+}
+.video-card-music{
+    display: flex;
+    color: white;
+    bottom: 5rem;
+    position: absolute;
+    margin: 1rem;
+}
+marquee{
+    position: relative;
+    left: -1rem;
+}
+.video-card-chat{
+    color: white; 
+    position: absolute;
+    top: 29rem;
+    right:1rem;
+    font-size: 1.5rem;
+}
+.video-card-like{
+    color: red;
+    position: absolute;
+    top: 31rem;
+    font-size: 2rem;
+    right: 1rem;
+
+}

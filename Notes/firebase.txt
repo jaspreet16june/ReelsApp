@@ -1,0 +1,21 @@
+1. what is firebase ?
+ It is a cloud platform provided by Google.
+ It provides us many different services such as 
+  a) database
+  b) storage
+  c) authentication
+  d)ML kit
+  e)Cloud function
+  f)Hosting
+  g) analytics
+  h) provides Backend services 
+We are not creating the services we are just using the services with the help of config keys
+function call kro hor woh wale functions use krlo 
+
+1. Service:
+  a) Firestore which we will take from firebase as a database (firestore is a name of database).
+  b) Authentication it is simply a Access provider that will a user gets access or not 
+  c) 
+
+2. auth.onAuthStateChanged -> 
+    here it is an working as an event , but in firebase this event is named as subscription 
