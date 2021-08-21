@@ -12,6 +12,11 @@ let Home = () =>{
         {(user)? " " : <Redirect to ="/Login"/>}
         <div className = "video-container">
             <VideoCard />
+            <VideoCard />
+            <VideoCard />
+            <VideoCard />
+            <VideoCard />
+
         </div>
         
         <button className="material-icons-outlined home-logout-btn" onClick={()=>{
