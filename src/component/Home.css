@@ -18,4 +18,13 @@
     color: white;
 
 }
+.upload-file{
+    position:absolute;
+    right:3rem;
+    width:6.4rem;
+    border-radius: 2rem;
+    border:1px solid black;
+    background-color: rgba(128, 128, 128, 0.308);
+    bottom:8rem;
+}
 
