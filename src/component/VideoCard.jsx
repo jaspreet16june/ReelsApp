@@ -1,10 +1,31 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { authContext } from "../AuthProvider";
+import { firestore } from "../firebase";
 import "./videoCard.css";
 let VideoCard=(props)=>{
-        
+    let [comments,setComments] = useState([]);         
     let [playing ,setPlaying] = useState(false);
     let [commentIsOpen,setCommentIsOpen] = useState(false);
+    let [currUserComment,   setCurrUserComment] = useState("");
+    let user = useContext(authContext)
     
+    useEffect(() => {
+        let f = async () => {
+          let commentsArr = props.data.comment;
+          let arr = [];
+          for (let i = 0; i < commentsArr.length; i++) {
+            let commentDoc = await firestore
+              .collection("comments")
+              .doc(commentsArr[i])
+              .get();
+    
+            arr.push(commentDoc.data());
+          }
+    
+          setComments(arr);
+        };
+        f();
+      }, [props]);
     return (
         
         
@@ -26,25 +47,63 @@ let VideoCard=(props)=>{
             <span className="material-icons-outlined video-card-like">favorite_border</span>
 
                 {commentIsOpen ? (
-                <div className =" video-card-commentBox">
-                    <div className = "actual-comment">
-                        <div className = " post-user-comment">
-                            <img src ="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" alt =" " />
+                // <div className =" video-card-commentBox">
+                //     <div className = "actual-comment">
+                //         {
+                //             comments.map((el)=>{
+                //                 return ( 
+                //         <div className = " post-user-comment">
+                //             <img src ={el.photo}  alt =" " />
+                //         <div>
+                //         <h5>{el.name}</h5>
+                //         <p>{el.comment}</p>
+                //         </div>
+                //       </div>  
+                //         )
+                //         </div>
+                // })}
+                // </div>
+                <div className="video-card-comment-box">
+                <div className="actual-comments">
+                  {comments.map((el) => {
+                    return (
+                      <div className="post-user-comment">
+                        <img src={el.photo} />
+                        <div>
+                          <h5>{el.name}</h5>
+                          <p>{el.comment}</p>
                         </div>
-                        <h5>User 1</h5>
-                        <p>This is 1st user Comment</p>
-                        
-                        <div className="post-user-comment">
-                         <img src="https://images.unsplash.com/photo-1529665253569-6d01c0eaf7b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cHJvZmlsZXxlbnwwfHwwfHw%3D&ixlib=rb-1.2.1&w=1000&q=80" />
-                         <div>
-                         <h5>user name</h5>
-                        <p>This is actual comment</p>
-                         </div>
-                        </div>
-                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
                         <div className="comment-form">
-                        <input type="text" />
-                        <button>Post</button>
+                        <input type="text"  value = {currUserComment} onChange={(e)=>{
+                            setCurrUserComment(e.currentTarget.value);
+                        }}/>
+                        <button onClick ={async ()=>{
+                            let docRef = await firestore.collection("comments").add({
+                                name: user.displayName,
+                                comment:currUserComment,
+                                photo: user.photoURL,
+                            })
+                            setCurrUserComment(" ");
+                            let doc =await docRef.get();
+                            let commentId = doc.id;
+                            let postDoc = await firestore.collection("posts").doc(props.data.id).get();
+
+
+                            let postCommentArr = postDoc.data().comment;
+
+                            postCommentArr.push(commentId);
+
+                            await firestore.collection("posts").doc(props.data.id).update({
+                                comment: postCommentArr,
+                            })
+
+                        }}><span class="material-icons-outlined">
+                        send
+                        </span></button>
                         </div>
         
                      </div>   

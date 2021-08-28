@@ -12,7 +12,8 @@ let Home = () =>{
 
 
     useEffect(()=>{
-            firestore.collection("popst").onSnapshot((querySnapshot)=>{
+        let unsub =
+            firestore.collection("posts").onSnapshot((querySnapshot)=>{
                 let docArr = querySnapshot.docs;
                 let arr = [];
 
@@ -25,8 +26,14 @@ let Home = () =>{
                 }
                     setPosts(arr);
                 })
+                return ()=>{
+                   unsub(); 
+                }
+
                 
-    },[])
+    },[]
+    
+    )
     return <>
         {(user)? " " : <Redirect to ="/Login"/>}
         <div className = "video-container">
@@ -60,21 +67,22 @@ let Home = () =>{
                         return;
                     }
 
-                    let uploadTask = storage.ref(`/post/${user.uid}/${Date.now()+"-"+name}`).put(videoObj);
+                    let uploadTask = storage.ref(`/posts/${user.uid}/${Date.now()+"-"+name}`).put(videoObj);
                     uploadTask.on("state_change",null,null,()=>{
                         uploadTask.snapshot.ref.getDownloadURL().then((url)=>{
                             console.log(url);
-
-
                         firestore.collection("posts").add({
-                            name:user.displayName,url ,like:[] ,comment :[]
+                            name:user.displayName,
+                            url ,
+                            like:[] ,
+                            comment :[]
                         })
                         })
                         
                     })
 
                 }}
-                choose me  />
+                 />
           </>
 }
 

@@ -3,7 +3,8 @@
     height: 100%;
     width:35%;
     margin:auto;
-    border: 1px solid white;
+    /* border: 1px solid white; */
+    scroll-snap-align: start;
     
 }
 .video-card-username{
@@ -33,16 +34,19 @@ marquee{
 .video-card-chat{
     color: white; 
     position: absolute;
-    top: 29rem;
+    top: 19rem;
     right:19px;
     font-size: 1.5rem;
     z-index: 1;
     
 }
+.video-card-chat:hover{
+  cursor: pointer;
+}
 .video-card-like{
     color: red;
     position: absolute;
-    top: 31rem;
+    top: 21rem;
     font-size: 2rem;
     z-index: 1;
     right: 1rem;
@@ -61,6 +65,7 @@ marquee{
     position: absolute;
     bottom: 0;
     z-index: 2;
+    
   }
   
   .comment-form {
@@ -74,14 +79,16 @@ marquee{
   }
   
   .comment-form button {
-    width: 15%;
+    width: 21%;
     height: 100%;
     border: none;
     color: #3498db;
+    /* background: red; */
   }
   
   .actual-comments {
     height: 90%;
+    overflow: auto;
   }
   
   .post-user-comment {
