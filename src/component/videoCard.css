@@ -5,6 +5,7 @@
     margin:auto;
     /* border: 1px solid white; */
     scroll-snap-align: start;
+    z-index:0;
     
 }
 .video-card-username{
@@ -43,12 +44,15 @@ marquee{
 .video-card-chat:hover{
   cursor: pointer;
 }
+.video-card-like:hover{
+  cursor: pointer;
+}
 .video-card-like{
     color: red;
     position: absolute;
     top: 21rem;
     font-size: 2rem;
-    z-index: 1;
+    z-index: 100;
     right: 1rem;
 }
 .video-card-video{

@@ -55,7 +55,7 @@ let Home = () =>{
                     let videoObj  = e.currentTarget.files[0];
                     
                     let{name,size,type} = videoObj;
-                    size = size /1000000;
+                    size = size /10000000;
                     if(size > 10){
                         alert("File size exceeded 10mb");
                         return;
